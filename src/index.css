@@ -1,0 +1,21 @@
+@import "tailwindcss";
+/* جهت بندی زبان‌ها */
+.direction-rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.direction-ltr {
+  direction: ltr;
+  text-align: left;
+}
+.box {
+  opacity: 0; /* باکس در ابتدا پنهانه */
+  transform: translateY(-20px); /* باکس کمی بالاتر قرار می‌گیره */
+  transition: opacity 0.4s ease, transform 0.5s ease; /* انیمیشن برای opacity و transform */
+}
+
+.box.show {
+  opacity: 1; /* باکس نمایش داده می‌شود */
+  transform: translateY(0); /* باکس به موقعیت اصلی برمی‌گرده */
+}
