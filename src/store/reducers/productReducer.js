@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api from "../../api/Api";
+import api from "../../api/api";
 
 export const add_product = createAsyncThunk(
   "product/add_product",
@@ -17,15 +17,12 @@ export const add_product = createAsyncThunk(
 );
 export const get_products = createAsyncThunk(
   "product/get_products",
-  async (
-    { parPage, page, searchValue },
-    { rejectWithValue, fulfillWithValue }
-  ) => {
+  async ({ page, search }, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const { data } = await api.get(
-        `/products-get?page=${page}&&searchValue=${searchValue}&&parPage=${parPage}`,
-        { withCredentials: true }
-      );
+      console.log(page, search);
+      const { data } = await api.get(`/posts/?page=${page}&&search=${search}`, {
+        withCredentials: true,
+      });
       console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
@@ -113,8 +110,8 @@ export const productReducer = createSlice({
         state.successMessage = payload.message;
       })
       .addCase(get_products.fulfilled, (state, { payload }) => {
-        state.totalProduct = payload.totalProduct;
-        state.products = payload.products;
+        state.products = payload.results;
+        state.totalProduct = payload.count;
       })
       .addCase(get_product.fulfilled, (state, { payload }) => {
         state.product = payload.product;

@@ -5,8 +5,9 @@ import About from "../components/About";
 import Banner from "../components/Banner";
 import "../index.css";
 
-export default function Home() { //{
-//translations, gallery}
+export default function Home() {
+  //{
+  //translations, gallery}
   // const [currentSlide, setCurrentSlide] = useState(0);
   // const [isGalleryOpen, setGalleryOpen] = useState(false);
   // const [galleryIndex, setGalleryIndex] = useState(0);

@@ -22,35 +22,48 @@
 //     </div>
 //   );
 // }
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { get_products } from "../store/reducers/productReducer";
 import Pagination from "./../components/Pagination";
 
 const Products = () => {
-  const [pageNumber, setPageNumber] = useState(1);
+  const { products, totalProduct } = useSelector(state => state.product);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const obj = {
+      page: page,
+      search: search,
+    };
+    dispatch(get_products(obj));
+  }, []);
   return (
     <div className="w-full flex justify-center mt-5 items-center">
       <div className="min-[1260px]:w-[80%] flex-wrap gap-7 w-[95%] flex justify-center items-center">
-        {[1, 2, 3, 4, 5, 6].map((i, j) => (
-          <div className="w-[300px] flex cursor-pointer justify-center gap-3 shadow-md items-end flex-col pb-5 bg-gray-100">
+        {products.map((i, j) => (
+          <Link
+            to={"/product/*"}
+            key={j}
+            className="w-[300px] flex cursor-pointer justify-center gap-3 shadow-md items-end flex-col pb-5 bg-gray-100">
             <div className="w-full h-[200px] flex justify-center items-center">
               image
             </div>
             <h2 className="w-full px-5 text-[18px] font-semibold text-start text-[#1e293b]">
-              Title product1
+              {i.title}
             </h2>
             <p className="px-5 w-full text-gray-600 text-[15px] truncate line-clamp-2">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat
-              saepe libero commodi quaerat! Qui tenetur quia, vitae eum ratione
-              explicabo! Ullam necessitatibus dolorem id ducimus quaerat
-              expedita consequatur debitis ipsa?
+              {i.description}
             </p>
-          </div>
+          </Link>
         ))}
         <div className="py-10 w-full flex justify-center items-center">
-          {30 > 5 && (
+          {totalProduct > 6 && (
             <Pagination
-              pageNumber={pageNumber}
-              setPageNumber={setPageNumber}
+              pageNumber={page}
+              setPageNumber={setPage}
               totalItem={30}
               parPage={3}
               showItem={Math.floor(30 / 3)}
