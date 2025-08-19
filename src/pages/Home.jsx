@@ -1,11 +1,25 @@
+import { useEffect } from "react";
 import { BsEmojiLaughing } from "react-icons/bs";
 import { FaCoffee } from "react-icons/fa";
 import { FaTrophy } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
 import About from "../components/About";
 import Banner from "../components/Banner";
 import "../index.css";
+import { get_products } from "../store/reducers/productReducer";
 
 export default function Home() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      get_products({
+        page: 1,
+        search: "",
+      })
+    );
+  }, []);
+  const { products } = useSelector(state => state.product);
+  console.log(products[products.length - 1], products[products.length - 2]);
   //{
   //translations, gallery}
   // const [currentSlide, setCurrentSlide] = useState(0);
@@ -44,7 +58,10 @@ export default function Home() {
     <div className="w-full -mt-9 mx-auto text-[#1e293b]">
       {/* Slider */}
       <Banner />
-      <About />
+      <About
+        product1={products[products.length - 1]}
+        product2={products[products.length - 2]}
+      />
       {/* faqs */}
       <div className="w-full flex justify-center mt-20 items-center">
         <div className="min-[1260px]:w-[80%] bg-gray-200 min-[800px]:flex-row flex-col gap-6 py-10 px-4 rounded-md w-[90%] flex justify-around items-center">
