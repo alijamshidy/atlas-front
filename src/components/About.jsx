@@ -17,9 +17,11 @@ export default function About({ product1, product2 }) {
               />
             </div>
             <div className="min-[800px]:w-8/12 w-full gap-3 flex jusstify-center items-start flex-col">
-              <h2 className="w-full font-bold text-[20px]">{product1.title}</h2>
+              <h2 className="w-full font-bold text-[20px]">
+                {product1?.title}
+              </h2>
               <p className="w-full text-[18px] text-gray-600 font-semibold">
-                {product1.description}
+                {product1?.description}
               </p>
             </div>
           </div>
@@ -36,10 +38,10 @@ export default function About({ product1, product2 }) {
             </div>
             <div className="min-[800px]:w-8/12 w-full gap-3 flex jusstify-center items-start flex-col">
               <h2 className="w-full font-bold text-[20px] text-white">
-                {product2.title}
+                {product2?.title}
               </h2>
               <p className="w-full text-[18px] text-gray-600 font-semibold">
-                {product2.description}
+                {product2?.description}
               </p>
             </div>
           </div>
