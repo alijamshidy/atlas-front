@@ -45,11 +45,14 @@ const Products = () => {
       <div className="min-[1260px]:w-[80%] flex-wrap gap-7 w-[95%] flex justify-center items-center">
         {products.map((i, j) => (
           <Link
-            to={"/product/*"}
+            to={`/product/${i.slug}`}
             key={j}
             className="w-[300px] flex cursor-pointer justify-center gap-3 shadow-md items-end flex-col pb-5 bg-gray-100">
             <div className="w-full h-[200px] flex justify-center items-center">
-              image
+              <img
+                src={i.images?.[0]?.url}
+                alt=""
+              />
             </div>
             <h2 className="w-full px-5 text-[18px] font-semibold text-start text-[#1e293b]">
               {i.title}

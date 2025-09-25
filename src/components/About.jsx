@@ -13,7 +13,7 @@ export default function About({ product1, product2 }) {
             <div className="min-[800px]:w-4/12 w-full flex justify-center items-center">
               <img
                 className="w-full"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9xHOSpUlHoPfUh5fWOfAXqurrOpI6zfG9uw&s"
+                src={product1?.images?.[0]?.url}
               />
             </div>
             <div className="min-[800px]:w-8/12 w-full gap-3 flex jusstify-center items-start flex-col">
@@ -33,7 +33,7 @@ export default function About({ product1, product2 }) {
             <div className="min-[800px]:w-4/12 w-full flex justify-center items-center">
               <img
                 className="w-full"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9xHOSpUlHoPfUh5fWOfAXqurrOpI6zfG9uw&s"
+                src={product2?.images?.[0]?.url}
               />
             </div>
             <div className="min-[800px]:w-8/12 w-full gap-3 flex jusstify-center items-start flex-col">
