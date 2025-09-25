@@ -1,6 +1,16 @@
+import { useEffect } from "react";
 import { FaFacebook, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { get_about } from "../store/reducers/aboutReducer";
 const Footer = ({ t }) => {
+  const dispatch = useDispatch();
+  const { companyTitle, companyDes } = useSelector(state => state.about);
+  const { products } = useSelector(state => state.product);
+  useEffect(() => {
+    dispatch(get_about());
+  }, []);
+  console.log(products);
   return (
     <footer className="bg-[#1e293b] border-t mt-12">
       <div className="flex justify-between mt-0  md:my-5 mx-auto w-[90%] flex-col md:flex-row relative items-start md:gap-3 lg:gap-5 2xl:gap-7 gap-1 text-white after:w-[100%] after:mx-auto after:h-[1px] after:bg-white after:absolute after:-bottom-4">
@@ -38,31 +48,14 @@ const Footer = ({ t }) => {
           <div className="w-full">
             <span className="text-[18px] font-bold">Products</span>
             <div className="flex flex-col justify-center items-center gap-1 px-3 mt-2">
-              <Link
-                to={"product/1"}
-                className="py-[6px] w-full line-clamp-1 truncate">
-                product1
-              </Link>
-              <Link
-                to={"product/2"}
-                className="py-[6px] w-full line-clamp-1 truncate">
-                product2
-              </Link>
-              <Link
-                to={"product/3"}
-                className="py-[6px] w-full line-clamp-1 truncate">
-                product3
-              </Link>
-              <Link
-                to={"product/4"}
-                className="py-[6px] w-full line-clamp-1 truncate">
-                product4
-              </Link>
-              <Link
-                to={"product/5"}
-                className="py-[6px] w-full line-clamp-1 truncate">
-                product5
-              </Link>
+              {[1, 2, 3, 4, 5].map((p, i) => (
+                <Link
+                  key={i}
+                  to={`product/${products[i]?.slug}`}
+                  className="py-[6px] w-full line-clamp-1 truncate">
+                  {products[i]?.title}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
@@ -71,16 +64,18 @@ const Footer = ({ t }) => {
           className="flex justify-center flex-col md:flex-row-reverse  items-center md:items-start  w-full  md:w-5/12">
           <div className="flex justify-center items-center xl:w-1/2 w-full h-[300px] md:h-[200px]">
             <img
-              className="h-full w-full"
-              src="http://localhost:5173/logo.png"
+              className="h-full w-full bg-white"
+              src="http://localhost:5173/atlas_logo_transparent.png"
               alt=""
             />
           </div>
-          <div className="text-right xl:w-1/2 w-full mt-3 xl:mt-0 md:mr-4 mr-0">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
-            quidem minus sint consequuntur dolorum, numquam sit architecto?
-            Saepe officia totam cumque voluptatibus eligendi quia quo libero
-            maxime. Saepe, ipsam sunt.
+          <div className=" xl:w-1/2 w-full mt-3 xl:mt-0 md:mr-4 mr-0">
+            <p className="w-full text-[26px] text-right">{companyTitle}</p>
+            <p
+              className="w-full text-right"
+              dir="rtl">
+              {companyDes.split(/\s+/).slice(0, 27).join(" ")}...
+            </p>
           </div>
         </div>
       </div>

@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GrLanguage } from "react-icons/gr";
 import { IoIosMenu } from "react-icons/io";
 import { IoChevronDown, IoChevronUp, IoCloseOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { href, Link, useLocation } from "react-router-dom";
+import { get_products } from "../store/reducers/productReducer";
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const { products } = useSelector(state => state.product);
   const currentPage = useLocation().pathname;
   const [activeState, setActiveState] = useState("");
   const [openSubmenu, setOpenSubmenu] = useState(null); // آکاردئون موبایل
@@ -29,6 +33,9 @@ export default function Header() {
     { label: "about us", path: "/about-us" },
     { label: "contact us", path: "#contact-us" },
   ];
+  useEffect(() => {
+    dispatch(get_products({ page: 1, search: "" }));
+  }, []);
 
   return (
     <div className="w-full relative z-50 flex flex-col justify-center items-center">
@@ -40,8 +47,8 @@ export default function Header() {
       <div className="w-[95%] flex justify-around items-center min-[1260px]:w-[80%] absolute bg-white/90 h-[80px] top-12 rounded-sm shadow-md border border-gray-200">
         <div className="w-[130px] flex justify-center items-center pl-6 ">
           <img
-            src="http://www.atlas-aim.com/images/2023/09/15/logo2.png"
-            className="h-[55px] w-full"
+            src="http://localhost:5173/atlas_logo_transparent.png"
+            className="h-[55px] w-full bg-transparent"
           />
         </div>
         <ul className="min-[1260px]:w-5/12 hidden min-[820px]:flex min-[820px]:w-6/12 pl-6 justify-center items-center gap-6">
@@ -88,12 +95,12 @@ export default function Header() {
               ? "show z-50"
               : "opacity-0 pointer-events-none"
           }`}>
-                  {item.submenu.map((sub, i) => (
+                  {products.map((p, i) => (
                     <Link
-                      to={sub.path}
+                      to={`product/${p.slug}`}
                       key={i}
                       className="hover:text-[#1e293b]">
-                      {sub.label}
+                      {p.title}
                     </Link>
                   ))}
                 </div>
