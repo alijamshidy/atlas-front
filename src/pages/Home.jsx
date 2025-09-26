@@ -3,8 +3,8 @@ import { BsEmojiLaughing } from "react-icons/bs";
 import { FaCoffee } from "react-icons/fa";
 import { FaTrophy } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import About from "../components/About";
 import Banner from "../components/Banner";
+import BestProducts from "../components/BestProducts";
 import "../index.css";
 import { get_products } from "../store/reducers/productReducer";
 
@@ -58,7 +58,7 @@ export default function Home() {
     <div className="w-full -mt-9 mx-auto text-[#1e293b]">
       {/* Slider */}
       <Banner />
-      <About
+      <BestProducts
         product1={products[products.length - 1]}
         product2={products[products.length - 2]}
       />

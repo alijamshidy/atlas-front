@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function About({ product1, product2 }) {
+export default function BestProducts({ product1, product2 }) {
   console.log(product1, product2);
   return (
     <div className="w-full mt-10 flex justify-center items-center flex-col">
